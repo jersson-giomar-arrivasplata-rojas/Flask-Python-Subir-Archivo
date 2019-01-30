@@ -5,73 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Sistema de Mantenimiento</title>
-
-    <!-- Bootstrap -->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-        html{
-        display: -webkit-box;
-    }
-    body{
-        margin: 0;
-    padding: 0;
-    }
-    #img  {  position: fixed;
-    width: 100%;
-    height: 100%;
-    contain: content;
-    z-index: 0;}
-    .body{
-        /*position: relative;*/
-        
-        text-align: center;
-        margin: 0 auto;
-        width: 100%;
-        position: absolute;
-        top:1em;
-    }
-    #startbutton,#sendbutton{
-        border-radius: 0;
-        box-shadow: none;
-        border-style: none;
-    }
-    #startbutton{
-        background-color: #1488f0;
-    }
-    #sendbutton{
-        background-color: #5cb85c
-    }
-    video   { z-index: 999;
-    border-style: solid;
-    width: 100%;
-    height: 25em;
-    border-width: 1px;}
-    canvas{
-        width: 50%;
-    margin-top: 15px;
-    border-width: 3px;
-    border-radius: 25px;
-    border-style: dotted;
-    }
-    #uni{
-        height: 150px;
-    }
-    </style>
+    <link rel="stylesheet" href="./css/css.css">
+    <javascript type="text/javascript" src="./js/js.js"></javascript>
 </head>
 
 <body>
@@ -81,48 +17,19 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="text-center">
-                            <img id="uni" src="https://pbs.twimg.com/profile_images/836317425780068353/L30l4b05_400x400.jpg">
-                            <h1 class="">ALUMNOS MANTENIMIENTO</h1>
+                            <h1 class="">COMPRIMIR ARCHIVO </h1>
                         </div>
                     </div>
                     <div style="padding:15px;">
                         <div class="col-lg-12">
-                            <a class="btn btn-primary pull-left" href="#Agregar" data-toggle="modal" data-target="#Agregar">Agregar
-                                Alumno</a>
-                            <!--modal es para abrir una pequeña pestaña al usarlo-->
-                            <a class="btn btn-primary pull-right" href="/">Refrescar</a>
+                            <form action="/uploads" method="POST"  enctype="multipart/form-data">
+                                <input type="file" id="file" >
+                                <button type="submit">Comprimir Archivo</button>
+                            </form>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Codigo</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Apellido</th>
-                                    <th scope="col">Edad</th>
-                                    <th scope="col">Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for alumno in Data %}
-                                <tr>
-                                    <th scope="row">{{alumno['codigo']}}</th>
-                                    <td>{{alumno['nombre']}}</td>
-                                    <td>{{alumno['apellido']}}</td>
-                                    <td>{{alumno['edad']}}</td>
-                                    <td>
-                                        <button class="btn btn-success" href="#Actualizar" data-toggle="modal"
-                                            data-target="#Actualizar" onclick="Actualizar('{{alumno['codigo']}}')">Actualizar</button>
-                                        <button class="btn btn-danger" href="#Eliminar" data-toggle="modal" data-target="#Eliminar"
-                                            onclick="Eliminar('{{alumno['codigo']}}')">Eliminar</button>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        
                     </div>
-                    <div class="panel-footer">
-                        <i>Bryan Daniell Arrivaspalta Rojas - Estudiante de Ingenieria de Sistemas III Ciclo</i>
-                    </div>
+
                 </div>
 
             </div>
@@ -131,139 +38,6 @@
 
     </div>
 
-    <div class="modal fade" id="Actualizar" tabindex="-1" role="dialog" aria-labelledby="ActualizarLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Actualizar Alumno</h4>
-                </div>
-                <form action="/alumno/update" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" maxlenght=45 class="form-control" id="codigo" name="codigo" placeholder="Codigo"
-                            value="">
-                        <div class="form-group">
-                            <label for="nombre">Ingrese su nombre</label>
-                            <input type="text" maxlenght=45 class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="apellido">Ingrese su apellido</label>
-                            <input type="text" maxlenght=45 class="form-control" id="apellido" name="apellido"
-                                placeholder="Apellido">
-                        </div>
-                        <div class="form-group">
-                            <label for="edad">Ingrese su edad</label>
-                            <input type="number" min=0 max=99 class="form-control" id="edad" name="edad" placeholder="Edad">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="Eliminar" tabindex="-1" role="dialog" aria-labelledby="EliminarLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Eliminar Alumno</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="codigo">Seguro en eliminar el Codigo</label>
-                        <input type="text" maxlenght=45 class="form-control" id="codigoA" name="codigo" placeholder="Codigo"
-                            disabled>
-                    </div>
-                    <!--#codigoA .form-control -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-Aceptar" onClick="modal_Aceptar()">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="Agregar" tabindex="-1" role="dialog" aria-labelledby="AgregarLabel">
-        <!--la parte de agregar-->
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Agregar Alumno</h4>
-                </div>
-                <form>
-                    <div class="modal-body">
-                        <input type="hidden" maxlenght=45 class="form-control" id="codigo" name="codigo" placeholder="Codigo"
-                            value="">
-                        <div class="form-group">
-                            <label for="nombre">Ingrese su nombre</label>
-                            <input type="text" maxlenght=45 class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="apellido">Ingrese su apellido</label>
-                            <input type="text" maxlenght=45 class="form-control" id="apellido" name="apellido"
-                                placeholder="Apellido">
-                        </div>
-                        <div class="form-group">
-                            <label for="edad">Ingrese su edad</label>
-                            <input type="number" min=0 max=99 class="form-control" id="edad" name="edad" placeholder="Edad">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        <script>
-            function Actualizar(codigo) {
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("POST", "/alumno/" + codigo, true);
-                xhttp.send();
-                xhttp.onload = function (resp) {
-                    var RESULT = resp['currentTarget']['response'];
-                    var ALUMNO = JSON.parse(RESULT)[0];
-                    $('#Actualizar #codigo').val(ALUMNO['codigo']);
-                    $('#Actualizar #nombre').val(ALUMNO['nombre']);
-                    $('#Actualizar #apellido').val(ALUMNO['apellido']);
-                    $('#Actualizar #edad').val(ALUMNO['edad']);
-                    console.log(ALUMNO);
-                };
-
-            }
-        </script>
-        <script>
-            function Eliminar(codigo) { //ajax en js
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("POST", "/alumno/" + codigo, true);
-                xhttp.send();
-                xhttp.onload = function (resp) {
-                    var RESULT = resp['currentTarget']['response'];
-                    var ALUMNO = JSON.parse(RESULT)[0];
-                    $('#Eliminar #codigoA').val(ALUMNO['codigo']);
-                    console.log(ALUMNO);
-                };
-
-            }
-
-            function modal_Aceptar() {
-                var codigo = $('#codigoA').val();
-                //var codigo = $('.codigoA').val();
-                //document.getElementById('codigoAlumno').value;
-                //document.getElementsByClassName('codigoAlumno')[0].value;
-                console.log(codigo);
-
-            }
-        </script>
 </body>
 
 </html>
