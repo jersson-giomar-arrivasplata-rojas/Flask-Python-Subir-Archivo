@@ -5,5 +5,5 @@ git init
 
 git add .
 git commit -m 'primer commit'
-git remote add origin https://github.com/Jersson-UTP/javascript-import-export-slider.git
+git remote add origin https://github.com/jersson-giomar-arrivasplata-rojas/Flask-Python-Subir-Archivo.git
 git push -u origin master
